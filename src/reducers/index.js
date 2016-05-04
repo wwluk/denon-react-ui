@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import VolumeReducer from './reducer_volume';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+    volume: VolumeReducer
 });
 
 export default rootReducer;
