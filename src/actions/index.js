@@ -21,7 +21,7 @@ export function fetchData() {
 }
 
 function volumeBtn(btn) {
-    const request = axios.get(`${ROOT_PUT}?cmd0=PutMasterVolumeBtn/${btn}&cmd1=aspMainZone_WebUpdateStatus/`)
+    const request = axios.get(buildUri(`PutMasterVolumeBtn/${btn}`))
         .then(fetchStatus);
 
     return {
@@ -39,7 +39,7 @@ export function volumeDown() {
 
 export function setVolume(volume) {
     const vol = volume - 80;
-    const request = axios.get(`${ROOT_PUT}?cmd0=PutMasterVolumeSet/${vol}&cmd1=aspMainZone_WebUpdateStatus/`)
+    const request = axios.get(buildUri(`PutMasterVolumeSet/${vol}`))
     .then(fetchStatus);
 
     return {
@@ -47,13 +47,23 @@ export function setVolume(volume) {
         payload: request
     }
 }
-
 export function selectInput(input) {
-    const request = axios.get(`${ROOT_PUT}?cmd0=PutZone_InputFunction/${input}&cmd1=aspMainZone_WebUpdateStatus/`)
+    const request = axios.get(buildUri(`PutZone_InputFunction/${input}`))
         .then(fetchStatus);
 
     return {
         type: 'SELECT_INPUT',
         payload: request
     }
+}
+
+function buildUri(actions) {
+    actions = _.isArray(actions) ? actions : [actions];
+    actions.push('aspMainZone_WebUpdateStatus/');
+
+    const actionsWithIndices = _.zip(_.range(actions.length), actions);
+    const uriParams = _.chain(actionsWithIndices)
+        .map(a => `cmd${a[0]}=${a[1]}`)
+        .join('&');
+    return `${ROOT_PUT}?${uriParams}`;
 }
