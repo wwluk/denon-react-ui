@@ -1,0 +1,7 @@
+.powerIndicator .on {
+    color: forestgreen;
+}
+
+.powerIndicator .off {
+    color: orangered;
+}

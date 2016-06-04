@@ -20,41 +20,53 @@ export function fetchData() {
     }
 }
 
-function volumeBtn(btn) {
-    const request = axios.get(buildUri(`PutMasterVolumeBtn/${btn}`))
-        .then(fetchStatus);
-
-    return {
-        type: 'SET_VOLUME',
-        payload: request
-    }
-}
 export function volumeUp() {
     return volumeBtn('>');
 }
-
 export function volumeDown() {
     return volumeBtn('<');
 }
 
-export function setVolume(volume) {
-    const vol = volume - 80;
-    const request = axios.get(buildUri(`PutMasterVolumeSet/${vol}`))
-    .then(fetchStatus);
-
+function volumeBtn(btn) {
     return {
         type: 'SET_VOLUME',
-        payload: request
+        payload: invoke(`PutMasterVolumeBtn/${btn}`)
+    }
+}
+
+export function setVolume(volume) {
+    const vol = volume - 80;
+    return {
+        type: 'SET_VOLUME',
+        payload: invoke(`PutMasterVolumeSet/${vol}`)
     }
 }
 export function selectInput(input) {
-    const request = axios.get(buildUri(`PutZone_InputFunction/${input}`))
-        .then(fetchStatus);
-
     return {
         type: 'SELECT_INPUT',
-        payload: request
+        payload: invoke(`PutZone_InputFunction/${input}`)
     }
+}
+
+export function powerOn() {
+    return {
+        type: 'SWITCH_POWER',
+        payload: invoke('PutZone_OnOff/ON')
+    }
+}
+
+export function powerOff() {
+    return {
+        type: 'SWITCH_POWER',
+        payload: invoke('PutZone_OnOff/OFF')
+    }
+}
+
+
+
+function invoke(actions) {
+    return axios.get(buildUri(actions))
+        .then(fetchStatus)
 }
 
 function buildUri(actions) {
