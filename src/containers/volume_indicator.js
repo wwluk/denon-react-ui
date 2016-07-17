@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchData, setVolume, volumeUp, volumeDown} from '../actions/index';
+require('../../style/range.scss');
 
 class VolumeIndicator extends Component {
     constructor(props) {

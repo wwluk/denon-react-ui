@@ -9,7 +9,11 @@ module.exports = {
   },
   module: {
     loaders: [{
-      exclude: /node_modules/,
+      test: /\.scss$/,
+      loaders: ["style", "css?sourceMap", "sass?sourceMap"]
+    }, {
+      exclude: [/node_modules/],
+      test: /\.js$/,
       loader: 'babel'
     }]
   },
