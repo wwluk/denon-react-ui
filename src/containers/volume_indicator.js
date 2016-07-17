@@ -8,7 +8,6 @@ class VolumeIndicator extends Component {
         super(props);
         this.props.fetchData();
         this.setVolume = this.setVolume.bind(this);
-
     }
 
     setVolume(event) {
@@ -17,7 +16,8 @@ class VolumeIndicator extends Component {
 
     render() {
         return (
-            <div>{this.props.volume}
+            <div>
+                <strong className="current-volume">{this.props.volume}</strong>
                 <button onClick={() => this.props.setVolume(this.props.volume-2)}>--</button>
                 <button onClick={this.props.volumeDown}>-</button>
                 <input type="range" min="0" max="80" step="0.5" value={this.props.volume} onChange={this.setVolume}/>

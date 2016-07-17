@@ -20,26 +20,32 @@ export function fetchData() {
     }
 }
 
+var debouncedFetchData = _.debounce(function(dispatch) {
+    return dispatch(fetchData());
+},2000);
+
 export function volumeUp() {
-    return volumeBtn('>');
+    return dispatch => dispatch(volumeBtn('>', 'VOLUME_UP')).then(debouncedFetchData(dispatch));
 }
 export function volumeDown() {
-    return volumeBtn('<');
+    return dispatch => dispatch(volumeBtn('<', 'VOLUME_DOWN')).then(debouncedFetchData(dispatch));
 }
 
-function volumeBtn(btn) {
+function volumeBtn(btn, type) {
     return {
-        type: 'SET_VOLUME',
+        type: type,
         payload: invoke(`PutMasterVolumeBtn/${btn}`)
     }
 }
 
 export function setVolume(volume) {
-    const vol = volume - 80;
-    return {
+    return dispatch => dispatch({
         type: 'SET_VOLUME',
-        payload: invoke(`PutMasterVolumeSet/${vol}`)
-    }
+        payload: {
+            promise: invoke(`PutMasterVolumeSet/${(volume - 80)}`),
+            data: volume
+        }
+    }).then(debouncedFetchData(dispatch))
 }
 export function selectInput(input) {
     return {
@@ -65,13 +71,11 @@ export function powerOff() {
 
 
 function invoke(actions) {
-    return axios.get(buildUri(actions))
-        .then(fetchStatus)
+    return axios.get(buildUri(actions));
 }
 
 function buildUri(actions) {
     actions = _.isArray(actions) ? actions : [actions];
-    actions.push('aspMainZone_WebUpdateStatus/');
 
     const actionsWithIndices = _.zip(_.range(actions.length), actions);
     const uriParams = _.chain(actionsWithIndices)
