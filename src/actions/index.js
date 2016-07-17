@@ -7,10 +7,12 @@ const URL = `${ROOT_URL}/goform/formMainZone_MainZoneXml.xml`;
 
 function fetchStatus() {
     return axios.get(URL)
-        .then(res => {
-            res.data = new X2JS().xml2js(res.data).item;
-            return res;
-        });
+        .then(denonXmlToJSON);
+}
+
+function denonXmlToJSON(response) {
+    response.data = new X2JS().xml2js(response.data).item;
+    return response;
 }
 
 export function fetchData() {
@@ -48,10 +50,13 @@ export function setVolume(volume) {
     }).then(debouncedFetchData(dispatch))
 }
 export function selectInput(input) {
-    return {
+    return dispatch => dispatch({
         type: 'SELECT_INPUT',
-        payload: invoke(`PutZone_InputFunction/${input}`)
-    }
+        payload: {
+            promise: invoke(`PutZone_InputFunction/${input}`),
+            data: input
+        }
+    }).then(debouncedFetchData(dispatch))
 }
 
 export function powerOn() {
