@@ -1,16 +1,15 @@
 import axios from 'axios';
 import X2JS from 'x2js';
 import _ from 'lodash';
-const ROOT_URL = 'http://localhost:1337/172.16.0.20';
+export const ROOT_URL = 'http://localhost:1337/172.16.0.20';
 const ROOT_PUT = `${ROOT_URL}/MainZone/index.put.asp`;
 const URL = `${ROOT_URL}/goform/formMainZone_MainZoneXml.xml`;
 
 function fetchStatus() {
-    return axios.get(URL)
-        .then(denonXmlToJSON);
+    return axios.get(URL).then(denonXmlToJSON);
 }
 
-function denonXmlToJSON(response) {
+export function denonXmlToJSON(response) {
     response.data = new X2JS().xml2js(response.data).item;
     return response;
 }
