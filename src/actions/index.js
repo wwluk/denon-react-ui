@@ -1,7 +1,7 @@
 import axios from 'axios';
 import X2JS from 'x2js';
 import _ from 'lodash';
-export const ROOT_URL = 'http://localhost:1337/172.16.0.20';
+export const ROOT_URL = '/api';
 const ROOT_PUT = `${ROOT_URL}/MainZone/index.put.asp`;
 const URL = `${ROOT_URL}/goform/formMainZone_MainZoneXml.xml`;
 
