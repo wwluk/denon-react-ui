@@ -25,7 +25,7 @@ module.exports = {
     contentBase: './',
     proxy: {
       '/api': {
-        target: 'http://172.16.0.20',
+        target: 'http://192.168.1.5',
         pathRewrite: {'^/api' : ''}
       }
     }
