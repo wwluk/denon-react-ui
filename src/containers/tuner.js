@@ -11,7 +11,11 @@ class Tuner extends Component {
         return (
             <div>
                 Tuner: {this.props.frequency}
+                <ul>
+                    {this.props.presets.map(preset => <li>{preset.name} - {preset.frequency}</li>)}
+                </ul>
             </div>
+
         );
     }
 }
@@ -19,7 +23,8 @@ class Tuner extends Component {
 
 function mapStateToProps({tuner}) {
     return {
-        frequency: tuner.frequency
+        frequency: tuner.frequency,
+        presets: tuner.presets
     };
 }
 
