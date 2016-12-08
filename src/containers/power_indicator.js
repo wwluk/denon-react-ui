@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {powerOn, powerOff} from '../actions/index';
+import FontAwesome from 'react-fontawesome';
 
 class PowerIndicator extends Component {
 
@@ -16,7 +17,12 @@ class PowerIndicator extends Component {
         const powerClass = this.props.power == 'ON' ? 'on' : 'off';
         return (
             <div className="power-indicator">
-                <button className={`btn btn-lg btn-outline-primary ${powerClass}`} onClick={this.switchPower.bind(this)}>{this.props.power}</button>
+                <button className={`btn btn-lg btn-outline-primary ${powerClass}`} onClick={this.switchPower.bind(this)}>
+                    <FontAwesome
+                        name='power-off'
+                        size='2x'
+                    />
+                </button>
             </div>
         );
     }
