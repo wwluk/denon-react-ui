@@ -1,6 +1,9 @@
 $margin-default: 10px;
 
 .power-indicator {
+  button:focus {
+    background-color: transparent;
+  }
   .on {
     color: forestgreen;
   }
