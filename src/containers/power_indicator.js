@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {powerOn, powerOff} from '../actions/index';
 
 class PowerIndicator extends Component {
@@ -16,8 +15,8 @@ class PowerIndicator extends Component {
     render() {
         const powerClass = this.props.power == 'ON' ? 'on' : 'off';
         return (
-            <div className="powerIndicator">
-                <button className={powerClass} onClick={this.switchPower.bind(this)}>{this.props.power}</button>
+            <div className="power-indicator">
+                <button className={`btn btn-lg btn-outline-primary ${powerClass}`} onClick={this.switchPower.bind(this)}>{this.props.power}</button>
             </div>
         );
     }

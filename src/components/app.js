@@ -5,6 +5,8 @@ import PowerIndicator from '../containers/power_indicator';
 import InputControls from './input_controls';
 import Player from '../containers/player';
 
+require('../../style/style.scss');
+
 export default class App extends Component {
     render() {
         return (

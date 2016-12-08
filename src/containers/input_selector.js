@@ -16,7 +16,7 @@ class InputSelector extends Component {
 
     render() {
         return (
-            <button onClick={this.handleClick}>{this.props.inputName}</button>
+            <button className="btn btn-secondary" onClick={this.handleClick}>{this.props.inputName}</button>
         );
     }
 }

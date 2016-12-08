@@ -13,13 +13,15 @@ $thumb-width: 30px;
 $thumb-border-width: 0px;
 $thumb-border-color: #fff;
 
-$track-width: inherit;
+$track-width: 100%;
 $track-height: 10px;
 $track-border-width: 1px;
 $track-border-color: #e6e6e6;
 
 $track-radius: 5px;
 $contrast: 50%;
+$margin-vertical: $thumb-height / 2 + 5px;
+$margin-horizontal: 0px;
 
 @mixin track() {
   width: $track-width;
@@ -39,7 +41,7 @@ $contrast: 50%;
 
 [type=range] {
   -webkit-appearance: none;
-  margin: $thumb-height / 2 20px;
+  margin: $margin-vertical $margin-horizontal;
   width: $track-width;
 
   &:focus {
