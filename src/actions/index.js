@@ -59,17 +59,17 @@ export function selectInput(input) {
 }
 
 export function powerOn() {
-    return {
-        type: 'SWITCH_POWER',
+    return dispatch => dispatch({
+        type: 'POWER_ON',
         payload: invoke('PutZone_OnOff/ON')
-    }
+    }).then(fetchData)
 }
 
 export function powerOff() {
-    return {
-        type: 'SWITCH_POWER',
+    return dispatch => dispatch({
+        type: 'POWER_OFF',
         payload: invoke('PutZone_OnOff/OFF')
-    }
+    }).then(fetchData)
 }
 
 
