@@ -10,7 +10,7 @@ export default class InputControls extends Component {
                 <InputIndicator/>
                 <div className="btn-group input-selector">
                     <InputSelector inputName="CD"/>
-                    <InputSelector inputName="AUX1"/>
+                    <InputSelector inputName="AUX2"/>
                     <InputSelector inputName="TUNER"/>
                 </div>
             </div>
