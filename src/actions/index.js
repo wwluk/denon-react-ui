@@ -1,9 +1,10 @@
 import axios from 'axios';
 import X2JS from 'x2js';
 import _ from 'lodash';
+import Zones from "../model/Zones";
 export const ROOT_URL = '/api';
-const ROOT_PUT = `${ROOT_URL}/MainZone/index.put.asp`;
-const URL = `${ROOT_URL}/goform/formMainZone_MainZoneXml.xml`;
+const ROOT_PUT = `${ROOT_URL}/MainZone/index.put.asp?ZoneName=${Zones.MAIN}`;
+const URL = `${ROOT_URL}/goform/formMainZone_MainZoneXml.xml?ZoneName=${Zones.MAIN}`;
 
 function fetchStatus() {
     return axios.get(URL).then(denonXmlToJSON);
@@ -85,5 +86,5 @@ function buildUri(actions) {
     const uriParams = _.chain(actionsWithIndices)
         .map(a => `cmd${a[0]}=${a[1]}`)
         .join('&');
-    return `${ROOT_PUT}?${uriParams}`;
+    return `${ROOT_PUT}&${uriParams}`;
 }
