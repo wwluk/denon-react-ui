@@ -2,12 +2,14 @@ import axios from 'axios';
 import X2JS from 'x2js';
 import _ from 'lodash';
 import Zones from "../model/Zones";
-export const ROOT_URL = '/api';
-const ROOT_PUT = `${ROOT_URL}/MainZone/index.put.asp?ZoneName=${Zones.MAIN}`;
-const URL = `${ROOT_URL}/goform/formMainZone_MainZoneXml.xml?ZoneName=${Zones.MAIN}`;
 
-function fetchStatus() {
-    return axios.get(URL).then(denonXmlToJSON);
+export const ROOT_URL = '/api';
+const ROOT_PUT = `${ROOT_URL}/MainZone/index.put.asp`;
+const STATUS_URL = `${ROOT_URL}/goform/formMainZone_MainZoneXml.xml`;
+const zoneStatusUrl = zone => `${STATUS_URL}?ZoneName=${zone}`;
+
+function fetchStatus(zone) {
+    return axios.get(zoneStatusUrl(zone)).then(denonXmlToJSON);
 }
 
 export function denonXmlToJSON(response) {
@@ -16,13 +18,25 @@ export function denonXmlToJSON(response) {
 }
 
 export function fetchData() {
-    return {
-        type: 'FETCH_DATA',
-        payload: fetchStatus()
+    return dispatch => {
+        //TODO should be removed after migrating all data to zone based Redux structure
+        const mainZoneStatus = fetchStatus(Zones.MAIN);
+        dispatch({
+            type: `FETCH_DATA`,
+            payload: mainZoneStatus
+        });
+        dispatch({
+            type: `${Zones.MAIN}_FETCH_DATA`,
+            payload: mainZoneStatus
+        });
+        dispatch({
+            type: `${Zones.ZONE2}_FETCH_DATA`,
+            payload: fetchStatus(Zones.ZONE2)
+        });
     }
 }
 
-var debouncedFetchData = _.debounce(function(dispatch) {
+export const debouncedFetchData = _.debounce(function(dispatch) {
     return dispatch(fetchData());
 },2000);
 
@@ -59,32 +73,16 @@ export function selectInput(input) {
     }).then(debouncedFetchData(dispatch))
 }
 
-export function powerOn() {
-    return dispatch => dispatch({
-        type: 'POWER_ON',
-        payload: invoke('PutZone_OnOff/ON')
-    }).then(fetchData)
+export function invoke(actions, zone = Zones.MAIN) {
+    return axios.get(buildUri(actions, zone));
 }
 
-export function powerOff() {
-    return dispatch => dispatch({
-        type: 'POWER_OFF',
-        payload: invoke('PutZone_OnOff/OFF')
-    }).then(fetchData)
-}
-
-
-
-function invoke(actions) {
-    return axios.get(buildUri(actions));
-}
-
-function buildUri(actions) {
+function buildUri(actions, zone) {
     actions = _.isArray(actions) ? actions : [actions];
 
     const actionsWithIndices = _.zip(_.range(actions.length), actions);
     const uriParams = _.chain(actionsWithIndices)
         .map(a => `cmd${a[0]}=${a[1]}`)
         .join('&');
-    return `${ROOT_PUT}&${uriParams}`;
+    return `${ROOT_PUT}?ZoneName=${zone}&${uriParams}`;
 }

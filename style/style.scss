@@ -11,7 +11,16 @@ $margin-default: 10px;
   .off {
     color: orangered;
   }
-  margin: $margin-default 0;
+}
+.power-indicators > div {
+  margin: $margin-default 10px $margin-default 0;
+  display: inline-block;
+
+  > .name {
+    margin-top:5px;
+    text-align: center;
+    font-size: 0.7em;
+  }
 }
 
 .input-selector{
