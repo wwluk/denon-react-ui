@@ -25,7 +25,7 @@ module.exports = {
     contentBase: './',
     proxy: {
       '/api': {
-        target: 'http://192.168.1.5',
+        target: 'http://denon',
         pathRewrite: {'^/api' : ''}
       }
     }
