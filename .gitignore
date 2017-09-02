@@ -1,4 +1,5 @@
 /node_modules
 bundle.js
+server.js
 npm-debug.log
 /.idea
