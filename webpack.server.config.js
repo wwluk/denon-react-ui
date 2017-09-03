@@ -1,5 +1,8 @@
 module.exports = {
     target: 'node',
+    node: {
+        __dirname: false
+    },
     entry: [
         './server-es6.js'
     ],
