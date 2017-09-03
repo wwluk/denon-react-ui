@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchData, setVolume, volumeUp, volumeDown} from '../actions/index';
+import {setVolume, volumeUp, volumeDown} from '../actions/index';
 require('../../style/range.scss');
 
 class VolumeIndicator extends Component {
     constructor(props) {
         super(props);
-        this.props.fetchData();
         this.setVolume = this.setVolume.bind(this);
     }
 
@@ -43,7 +42,7 @@ function mapStateToProps({volume}) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({fetchData, setVolume, volumeUp, volumeDown}, dispatch);
+    return bindActionCreators({setVolume, volumeUp, volumeDown}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VolumeIndicator);
