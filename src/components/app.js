@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import VolumeIndicator from '../containers/volume_indicator';
+import { MainZoneVolume, Zone2Volume } from '../containers/volume_indicator';
 import InputControls from './input_controls';
 import Player from '../containers/player';
 import MainZonePowerIndicator from '../containers/MainZonePowerIndicator';
@@ -27,7 +27,8 @@ export default class App extends Component {
                         <div className="name">{Zones.ZONE2}</div>
                     </div>
                 </div>
-                <VolumeIndicator/>
+                <MainZoneVolume/>
+                <Zone2Volume/>
                 <InputControls/>
                 <Player/>
             </div>

@@ -40,25 +40,29 @@ export const debouncedFetchData = _.debounce(function(dispatch) {
     return dispatch(fetchData());
 },2000);
 
-export function volumeUp() {
-    return dispatch => dispatch(volumeBtn('>', 'VOLUME_UP')).then(debouncedFetchData(dispatch));
+export function volumeUp(zone) {
+    return dispatch =>
+        dispatch(volumeBtn('>', `${zone}_VOLUME_UP`, zone))
+            .then(debouncedFetchData(dispatch));
 }
-export function volumeDown() {
-    return dispatch => dispatch(volumeBtn('<', 'VOLUME_DOWN')).then(debouncedFetchData(dispatch));
+export function volumeDown(zone) {
+    return dispatch =>
+        dispatch(volumeBtn('<', `${zone}_VOLUME_DOWN`, zone))
+            .then(debouncedFetchData(dispatch));
 }
 
-function volumeBtn(btn, type) {
+function volumeBtn(btn, type, zone) {
     return {
         type: type,
-        payload: invoke(`PutMasterVolumeBtn/${btn}`)
+        payload: invoke(`PutMasterVolumeBtn/${btn}`, zone)
     }
 }
 
-export function setVolume(volume) {
+export function setVolume(volume, zone) {
     return dispatch => dispatch({
-        type: 'SET_VOLUME',
+        type: `${zone}_SET_VOLUME`,
         payload: {
-            promise: invoke(`PutMasterVolumeSet/${(volume - 80)}`),
+            promise: invoke(`PutMasterVolumeSet/${(volume - 80)}`, zone),
             data: volume
         }
     }).then(debouncedFetchData(dispatch))
