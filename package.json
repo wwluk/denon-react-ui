@@ -6,6 +6,7 @@
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --host 0.0.0.0",
+    "build": "run-p build:server build:client",
     "build:client": "cross-env NODE_ENV=production webpack -p",
     "build:server": "cross-env NODE_ENV=production webpack -p --config webpack.server.config.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
@@ -24,6 +25,7 @@
     "jsdom": "^8.1.0",
     "json-loader": "^0.5.7",
     "mocha": "^2.4.5",
+    "npm-run-all": "^4.1.1",
     "react-addons-test-utils": "^15.2.1",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.15.0"
