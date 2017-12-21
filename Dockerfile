@@ -1,4 +1,4 @@
-FROM arm32v7/node:carbon
+FROM hypriot/rpi-node:latest
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY package*.json ./
