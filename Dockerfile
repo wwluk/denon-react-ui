@@ -1,4 +1,4 @@
-FROM node:carbon
+FROM arm32v7/node:carbon
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY package*.json ./
