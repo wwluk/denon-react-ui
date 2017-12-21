@@ -1,4 +1,5 @@
 FROM hypriot/rpi-node:latest
+ENTRYPOINT ["#!/bin/bash"]
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY package*.json ./
