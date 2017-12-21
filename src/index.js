@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 
-import App from './containers/app';
+import App from './containers/App';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware(), thunk)(createStore);
