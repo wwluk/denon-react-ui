@@ -3,5 +3,3 @@ README.md
 .gitignore
 .dockerignore
 node_modules/
-server.js
-bundle.js

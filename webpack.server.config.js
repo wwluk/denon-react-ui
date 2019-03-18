@@ -15,13 +15,13 @@ module.exports = {
         loaders: [{
             exclude: [/node_modules/],
             test: /\.js$/,
-            loader: 'babel'
+            loader: 'babel-loader'
         }, {
             test: /\.json$/,
             loader: 'json-loader'
         }]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx', '.json']
+        extensions: ['.js', '.jsx', '.json']
     }
 };

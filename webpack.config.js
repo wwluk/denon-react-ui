@@ -12,15 +12,15 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.scss$/,
-      loaders: ["style", "css?sourceMap", "sass?sourceMap"]
+      loaders: ["style-loader", "css-loader?sourceMap", "sass-loader?sourceMap"]
     }, {
       exclude: [/node_modules/],
       test: /\.js$/,
-      loader: 'babel'
+      loader: 'babel-loader'
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   plugins: [
       new webpack.DefinePlugin({
