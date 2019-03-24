@@ -12,13 +12,14 @@ module.exports = {
         filename: 'server.js'
     },
     module: {
-        loaders: [{
-            exclude: [/node_modules/],
+        rules: [{
             test: /\.js$/,
-            loader: 'babel-loader'
-        }, {
-            test: /\.json$/,
-            loader: 'json-loader'
+            exclude: [/node_modules/],
+            use: [
+                {
+                    loader: 'babel-loader'
+                }
+            ]
         }]
     },
     resolve: {
